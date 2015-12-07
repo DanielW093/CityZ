@@ -34,7 +34,10 @@ public class PlayerMovement : NetworkBehaviour {
 	void Start () {
 		PlayerController = GetComponent<CharacterController>(); //Get player controller
 		PlayerCamera = GetComponentInChildren<Camera>();
-
+		
+		Cursor.lockState = CursorLockMode.Confined;
+		Cursor.visible = false;
+		
 		if(!isLocalPlayer)
 		{
 			GetComponentInChildren <AudioListener>().enabled = false;
@@ -65,6 +68,12 @@ public class PlayerMovement : NetworkBehaviour {
 				MoveDir.y = 0f;
 			}
 			PreviouslyGrounded = PlayerController.isGrounded;
+			
+			if(health <= 0)
+			{
+				//Die
+				Network.CloseConnection(Network.connections[0], true);			
+			}
 		}
 	}
 
