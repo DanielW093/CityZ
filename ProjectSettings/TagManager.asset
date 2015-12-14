@@ -6,6 +6,11 @@ TagManager:
   tags:
   - ItemCanvas
   - gunShot
+  - NetworkManager
+  - Weapon
+  - ClientUI
+  - DecalManager
+  - LobbyBanner
   layers:
   - Default
   - TransparentFX

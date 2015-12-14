@@ -10,18 +10,18 @@ public class CameraManagement : MonoBehaviour {
 	AudioListener aud;
 	
 	// Use this for initialization
-	void Start () {
+	void Awake() {
 		cam = GetComponent<Camera>();
 		aud = GetComponent<AudioListener>();
 	}
 
-	void MakeActive()
+	public void MakeActive()
 	{
 		cam.enabled = true;
 		aud.enabled = true;
 	}
 
-	void MakeInactive()
+	public void MakeInactive()
 	{
 		cam.enabled = false;
 		aud.enabled = false;

@@ -13,7 +13,7 @@ public class rotate : MonoBehaviour {
 		direction = Random.Range(0,2);
 		if(direction == 0)
 		{
-			speed = speed;
+			speed = -speed;
 		}
 	}
 	
