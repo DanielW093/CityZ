@@ -38,6 +38,11 @@ public class Item
 		Debug.Log("Item: " + name + " Created with id of: "+ _id);
 	}
 	
+	public void onUse()
+	{
+	
+	}
+	
 	public Texture getTex()
 	{
 		return _tex;

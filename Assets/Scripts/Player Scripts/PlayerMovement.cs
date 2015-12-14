@@ -9,7 +9,9 @@ public class PlayerMovement : NetworkBehaviour {
 
 	[SyncVar] private int health = 100;
 	[SyncVar] public bool isAlive = true;
-
+	[SyncVar] private int Medkits = 0;
+	[SyncVar] private bool isHealing = false;
+	
 	[SerializeField] private GameObject SpecCamera;
 
 	private bool IsWalking;
@@ -33,6 +35,9 @@ public class PlayerMovement : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {
+	
+		AddMedkit();
+		
 		PlayerController = GetComponent<CharacterController>(); //Get player controller
 		PlayerCamera = GetComponentInChildren<Camera>();
 
@@ -83,6 +88,12 @@ public class PlayerMovement : NetworkBehaviour {
 
 				//Network.Destroy(gameObject);
 				Destroy (gameObject);
+			}
+			
+			if(Input.GetAxis ("Heal") > 0 && !isHealing)
+			{
+				isHealing = true;
+				UseMedkit();
 			}
 		}
 	}
@@ -165,4 +176,20 @@ public class PlayerMovement : NetworkBehaviour {
 	{
 		return health;
 	}
+	
+	public void AddMedkit()
+	{
+		Medkits++;
+	}
+	
+	private void UseMedkit()
+	{
+		if(Medkits > 0 && health < 100)
+		{
+			ChangeHealth (50);
+			Medkits--;
+		}
+	}
+	
+	
 }

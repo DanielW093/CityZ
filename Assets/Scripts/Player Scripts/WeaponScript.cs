@@ -6,6 +6,8 @@ public class WeaponScript : NetworkBehaviour {
 
 	[SyncVar] private bool hasGun; //Does the player have a gun?
 
+	[SerializeField] private GameObject gunShot; //Gunshot Prefab
+	
 	[SerializeField] private bool isAutomatic = true;
 	[SerializeField] private float fireDelay;
 	[SerializeField] private int shotDamage = 2;
@@ -19,7 +21,8 @@ public class WeaponScript : NetworkBehaviour {
 	private GameObject currentWeapon;
 	private DecalManager decalManager;
 	[SerializeField] private GameObject tracer;
-
+	
+	
 	private HitMarkerScript hitMarker;
 
 	// Use this for initialization
@@ -136,6 +139,9 @@ public class WeaponScript : NetworkBehaviour {
 			hitPoint = ray.GetPoint (projectileRange);
 			Debug.Log ("SHOT HIT NOTHING");
 		}
+		
+		GameObject tempShot = Instantiate(gunShot,firePoint.position,Quaternion.identity) as GameObject;
+		tempShot.GetComponent<AudioSource>().Play();
 
 		//GameObject thisTrace = (GameObject)Instantiate (tracer, firePoint.position, Quaternion.identity);
 		//thisTrace.GetComponent<TracerScript> ().InitDirection (hitPoint);

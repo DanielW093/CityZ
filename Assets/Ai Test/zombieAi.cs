@@ -1,59 +1,95 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class zombieAi : MonoBehaviour {
+public class zombieAi : NetworkBehaviour {
 
 	NavMeshAgent agent;
-	public Transform target;
-	public Transform player;
-	public GameObject playerShadow;
+	[SerializeField] const float maxSightDist = 100f;
+	[SerializeField] const float maxHeardDist = 1000f;
+	[SerializeField] const float maxWanderDist = 5f;
 	
-	GameObject pS = null;
-	bool seenPlayer = false;
 	// Use this for initialization
 	void Start () {
 		agent = GetComponent<NavMeshAgent>();
+		agent.SetDestination (transform.position);
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		Ray ray = new Ray(this.transform.position,
-				player.position - this.transform.position);
-		Debug.DrawRay(ray.origin,player.position - this.transform.position);
-		RaycastHit hit;
-		Physics.Raycast(ray,out hit,100);
+		GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");		
+		float seenDist = maxSightDist;
+		GameObject seenPlayer = null;
 		
-		if(hit.transform.tag == "Player")
-		{	
-			if(seenPlayer)
-			{
-				pS.transform.position = player.position;
-			}
-			else
-			{
-				seenPlayer = true;
-				pS = (GameObject)Instantiate(playerShadow,hit.point,Quaternion.identity);					
-			}
+		foreach(GameObject p in Players)
+		{
+			Ray ray = new Ray(this.transform.position,
+			                  p.transform.position - this.transform.position);
+			Debug.DrawRay(ray.origin,p.transform.position - this.transform.position);
+			RaycastHit hit;
+			Physics.Raycast(ray,out hit,maxSightDist);
 			
-			agent.SetDestination(pS.transform.position);
+			if(hit.transform != null)
+			{
+				if(hit.transform.root.tag == "Player")
+				{	
+					if(Vector3.Distance(p.transform.position, this.transform.position) < seenDist)
+					{
+						seenPlayer = p;
+						seenDist = Vector3.Distance(p.transform.position, this.transform.position);
+					}
+				}
+			}
 		}
 		
-		GameObject[] gunshots = GameObject.FindGameObjectsWithTag("gunShot");
+		GameObject[] shots = GameObject.FindGameObjectsWithTag("gunShot");	
+		float heardDist = maxHeardDist;
+		GameObject heardShot = null;
 		
-		foreach(GameObject g in gunshots)
+		foreach(GameObject s in shots)
 		{
-			if(Vector3.Distance(g.transform.position,this.gameObject.transform.position) < g.GetComponent<AudioSource>().maxDistance
-					&& !seenPlayer)
-			{			
-				if(pS!=null)
-				{
-					Destroy(pS);
-				}
-				pS = (GameObject)Instantiate(playerShadow,g.transform.position,Quaternion.identity);
+			if(Vector3.Distance(s.transform.position, this.transform.position) < heardDist)
+			{
+				heardShot = s;
+				heardDist = Vector3.Distance(s.transform.position, this.transform.position);
 			}
+		}
+		
+		if(heardShot != null && seenPlayer == null)
+		{
+			Ray ray = new Ray(this.transform.position,
+			                  heardShot.transform.position - this.transform.position);
+			Debug.DrawRay(ray.origin,heardShot.transform.position - this.transform.position);
+			RaycastHit hit;
+			Physics.Raycast(ray,out hit,maxHeardDist);	
+		
+			agent.SetDestination(hit.transform.position);
+		}
+		
+		if(seenPlayer != null)
+		{
+			agent.SetDestination(seenPlayer.transform.position);
+		}
+		
+		if(heardShot == null && seenPlayer == null && !agent.hasPath)
+		{
+			Debug.Log ("WANDER");
+			float angle = Random.Range (-45, 46);
 			
-			agent.SetDestination(pS.transform.position);
+			transform.Rotate(Vector3.up, angle);
+			
+			Vector3 dir = transform.forward;
+			
+			Ray ray = new Ray(this.transform.position, dir);
+			Debug.DrawRay (ray.origin,dir, Color.black);
+			RaycastHit hit;
+			Physics.Raycast (ray,out hit,maxWanderDist);
+			
+			if(hit.collider != null)
+				agent.SetDestination (hit.point);
+			else
+				agent.SetDestination (ray.GetPoint(maxWanderDist));
 		}
 		
 	}

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class Console : MonoBehaviour {
+public class Console : NetworkBehaviour {
 
 	char[] breakChars = {'(',')',','};
 	bool shouldShow = false;
@@ -59,7 +60,10 @@ public class Console : MonoBehaviour {
 	void cmSpawnItem(int id,int runs)
 	{
 		for(int x = 0; x < runs; x++)
-			Instantiate(Items.items[id].getGameObject(), player.position + Vector3.up*(5+x),Quaternion.identity);
+		{
+			GameObject it = Instantiate(Items.items[id].getGameObject(), player.position + Vector3.up*(5+x),Quaternion.identity) as GameObject;
+			NetworkServer.Spawn (it);
+		}
 	}
 	
 	void cmAddItem(int id,int q)

@@ -5,7 +5,7 @@ public class ItemContainer
 {	
 	Item[] inv;
 	int containerId;
-	
+	public int size = 5;
 	int rows = 1;
 		
 	public ItemContainer(int id,int size = 5)

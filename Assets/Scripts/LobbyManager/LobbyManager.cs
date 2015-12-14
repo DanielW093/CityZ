@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,8 +33,11 @@ public class LobbyManager : NetworkLobbyManager {
 	public override void OnStopServer ()
 	{
 		//THIS IS CALLED WHEN A SERVER IS STOPPED
-		GameObject.FindGameObjectWithTag("GameController").GetComponent<ApplicationSetup>().EnableMainMenu();
-		GameObject.Find("LobbyMenu").GetComponent<Canvas>().enabled = false;
+		if(GameObject.FindGameObjectWithTag("GameController") != null)
+			GameObject.FindGameObjectWithTag("GameController").GetComponent<ApplicationSetup>().EnableMainMenu();
+		if(GameObject.Find("LobbyMenu") != null)	
+			GameObject.Find("LobbyMenu").GetComponent<Canvas>().enabled = false;
+		
 		ActiveConnections.Clear();
 		base.OnStopServer ();
 	}

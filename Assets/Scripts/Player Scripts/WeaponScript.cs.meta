@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: da022616d69e2c04ca36035b27cdde94
-timeCreated: 1449263175
+timeCreated: 1450113799
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - gunShot: {fileID: 122624, guid: 031630203fb1204419c135d713b31e17, type: 2}
+  - tracer: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
