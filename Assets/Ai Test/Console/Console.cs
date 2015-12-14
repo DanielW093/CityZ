@@ -7,6 +7,8 @@ public class Console : MonoBehaviour {
 	bool shouldShow = false;
 	string textField= "";
 	
+	Transform player;
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -25,6 +27,7 @@ public class Console : MonoBehaviour {
 	{
 		if(shouldShow)
 		{
+			player = GameObject.FindGameObjectWithTag("Player").transform;
 			if (Event.current.isKey) 
 			{
 				if (Event.current.keyCode == KeyCode.Return)
@@ -46,8 +49,18 @@ public class Console : MonoBehaviour {
 		{
 			if(sin[1] != null && sin[2] != null){ cmAddItem(int.Parse(sin[1]),int.Parse(sin[2]));}
 		}
+		
+		if(sin[0] == "spawnitem")
+		{
+			if(sin[1] != null && sin[2] != null){ cmSpawnItem(int.Parse(sin[1]),int.Parse(sin[2]));}
+		}
 	}
 	
+	void cmSpawnItem(int id,int runs)
+	{
+		for(int x = 0; x < runs; x++)
+			Instantiate(Items.items[id].getGameObject(), player.position + Vector3.up*(5+x),Quaternion.identity);
+	}
 	
 	void cmAddItem(int id,int q)
 	{

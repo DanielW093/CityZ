@@ -73,6 +73,14 @@ public class Item
 	
 	public int getId(){return _id;}
 	public string getName(){ return _name;}
+	
+	public GameObject getGameObject(){return obj;}
+	
+	public void setGameObject(GameObject gO)
+	{
+		obj = gO;
+	}
+	
 	public void useItem()
 	{
 		
