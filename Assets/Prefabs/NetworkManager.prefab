@@ -47,15 +47,16 @@ MonoBehaviour:
   m_DontDestroyOnLoad: 1
   m_RunInBackground: 1
   m_ScriptCRCCheck: 1
-  m_SendPeerInfo: 0
-  m_MaxDelay: .00999999978
+  m_MaxDelay: 0.01
   m_LogLevel: 2
   m_PlayerPrefab: {fileID: 164730, guid: 5bd31f07d7f4f7344b7a4bc06a08cd7b, type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
-  m_OfflineScene: TestMenu
+  m_OfflineScene: 
   m_OnlineScene: World
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 123068, guid: 70368d909f53fb449a58c78f55f762c4, type: 2}
+  - {fileID: 190146, guid: 47a8b408a1a32754a850ff020089de07, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -76,8 +77,16 @@ MonoBehaviour:
     m_MaxCombinedReliableMessageCount: 10
     m_MaxSentMessageQueueSize: 128
     m_IsAcksLong: 0
+    m_UsePlatformSpecificProtocols: 0
     m_Channels: []
+  m_GlobalConfig:
+    m_ThreadAwakeTimeout: 1
+    m_ReactorModel: 0
+    m_ReactorMaximumReceivedMessages: 1024
+    m_ReactorMaximumSentMessages: 1024
+    m_MaxPacketSize: 2000
   m_Channels: 0500000000000000
+  m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
   m_PacketLossPercentage: 0
@@ -112,6 +121,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: NetworkManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_OfflineScene
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

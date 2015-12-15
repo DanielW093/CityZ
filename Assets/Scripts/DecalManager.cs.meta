@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 482ecd0b7ad94554788905eb6b39b8a0
+timeCreated: 1449761871
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - bhSprite: {fileID: 123068, guid: 70368d909f53fb449a58c78f55f762c4, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

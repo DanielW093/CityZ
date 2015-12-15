@@ -8,6 +8,9 @@ using System.Collections;
 public class PlayerMovement : NetworkBehaviour {
 
 	[SyncVar] private int health = 100;
+	[SyncVar] public bool isAlive = true;
+
+	[SerializeField] private GameObject SpecCamera;
 
 	private bool IsWalking;
 	[SerializeField] private float WalkSpeed;
@@ -28,15 +31,13 @@ public class PlayerMovement : NetworkBehaviour {
 	private bool IsJumping;
 	//private AudioSource m_AudioSource;
 
-	private GameObject currentWeapon;
-
 	// Use this for initialization
 	void Start () {
 		PlayerController = GetComponent<CharacterController>(); //Get player controller
 		PlayerCamera = GetComponentInChildren<Camera>();
-		
-		Cursor.lockState = CursorLockMode.Confined;
+
 		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
 		
 		if(!isLocalPlayer)
 		{
@@ -49,7 +50,7 @@ public class PlayerMovement : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (isLocalPlayer)
+		if (isLocalPlayer&& isAlive)
 		{
 			//Jumping Input
 			if(JumpPress == false)
@@ -72,14 +73,23 @@ public class PlayerMovement : NetworkBehaviour {
 			if(health <= 0)
 			{
 				//Die
-				Network.CloseConnection(Network.connections[0], true);			
+				GetComponentInChildren <AudioListener>().enabled = false;
+				PlayerCamera.enabled = false;
+				
+				GameObject spectator = (GameObject)Instantiate (SpecCamera, transform.position, Quaternion.identity);
+				spectator.GetComponent<CameraManagement>().MakeActive ();
+
+				isAlive = false;
+
+				//Network.Destroy(gameObject);
+				Destroy (gameObject);
 			}
 		}
 	}
 
 	void FixedUpdate()
 	{
-		if (isLocalPlayer)
+		if (isLocalPlayer && isAlive)
 		{
 			float speed;
 
@@ -134,9 +144,25 @@ public class PlayerMovement : NetworkBehaviour {
 		}
 	}
 
+	public void TakeDamage(int val)
+	{
+		ChangeHealth (val);
+	}
+
 	public void ChangeHealth(int val)
 	{
-		health += val;
+		health += val; //Modify health
+
+		if(health < 0)
+			health = 0;
+		if (health > 100)
+			health = 100;
+
 		Debug.Log (gameObject.name + " health: " + health);
+	}
+
+	public int GetHealth()
+	{
+		return health;
 	}
 }
