@@ -1,0 +1,358 @@
+fileFormatVersion: 2
+guid: 56d1e3acf83a3bd41a95e7b926ef9783
+timeCreated: 1450295533
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Bottom Arm
+    100004: Bottom Arm.001
+    100006: Bottom Arm_end
+    100008: Bottom Leg
+    100010: Bottom Leg.001
+    100012: Bottom Leg.001_end
+    100014: Bottom Leg_end
+    100016: Chest
+    100018: Chest 1
+    100020: Gun
+    100022: Gun 1
+    100024: Gun_end
+    100026: Head
+    100028: Head 1
+    100030: Head_end
+    100032: Left Arm
+    100034: Left Arm lower
+    100036: Left Hip
+    100038: Left Leg
+    100040: Left Leg Lower
+    100042: Left Shoulder
+    100044: //RootNode
+    100046: Right Arm
+    100048: Right Arm.001
+    100050: Right Hip
+    100052: Right Leg
+    100054: Right Leg Lower
+    100056: Right Shoulder
+    100058: Root
+    100060: Root_end
+    100062: Top Arm
+    100064: Top Arm.001
+    100066: Top Leg
+    100068: Top Leg.001
+    400000: Armature
+    400002: Bottom Arm
+    400004: Bottom Arm.001
+    400006: Bottom Arm_end
+    400008: Bottom Leg
+    400010: Bottom Leg.001
+    400012: Bottom Leg.001_end
+    400014: Bottom Leg_end
+    400016: Chest
+    400018: Chest 1
+    400020: Gun
+    400022: Gun 1
+    400024: Gun_end
+    400026: Head
+    400028: Head 1
+    400030: Head_end
+    400032: Left Arm
+    400034: Left Arm lower
+    400036: Left Hip
+    400038: Left Leg
+    400040: Left Leg Lower
+    400042: Left Shoulder
+    400044: //RootNode
+    400046: Right Arm
+    400048: Right Arm.001
+    400050: Right Hip
+    400052: Right Leg
+    400054: Right Leg Lower
+    400056: Right Shoulder
+    400058: Root
+    400060: Root_end
+    400062: Top Arm
+    400064: Top Arm.001
+    400066: Top Leg
+    400068: Top Leg.001
+    4300000: Chest
+    4300002: Head
+    4300004: Right Arm
+    4300006: Right Arm.001
+    4300008: Left Leg
+    4300010: Left Leg Lower
+    4300012: Right Leg
+    4300014: Right Leg Lower
+    4300016: Left Arm
+    4300018: Left Arm lower
+    4300020: Gun
+    7400000: Walk
+    7400002: Idle
+    9500000: //RootNode
+    13700000: Chest
+    13700002: Gun
+    13700004: Head
+    13700006: Left Arm
+    13700008: Left Arm lower
+    13700010: Left Leg
+    13700012: Left Leg Lower
+    13700014: Right Arm
+    13700016: Right Arm.001
+    13700018: Right Leg
+    13700020: Right Leg Lower
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Armature|ArmatureAction
+      firstFrame: 0
+      lastFrame: 21
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Chest 1
+        weight: 1
+      - path: Armature/Chest 1/Head 1
+        weight: 1
+      - path: Armature/Chest 1/Head 1/Head_end
+        weight: 1
+      - path: Armature/Chest 1/Left Shoulder
+        weight: 1
+      - path: Armature/Chest 1/Left Shoulder/Top Arm.001
+        weight: 1
+      - path: Armature/Chest 1/Left Shoulder/Top Arm.001/Bottom Arm.001
+        weight: 1
+      - path: Armature/Chest 1/Left Shoulder/Top Arm.001/Bottom Arm.001/Gun 1
+        weight: 1
+      - path: Armature/Chest 1/Left Shoulder/Top Arm.001/Bottom Arm.001/Gun 1/Gun_end
+        weight: 1
+      - path: Armature/Chest 1/Right Shoulder
+        weight: 1
+      - path: Armature/Chest 1/Right Shoulder/Top Arm
+        weight: 1
+      - path: Armature/Chest 1/Right Shoulder/Top Arm/Bottom Arm
+        weight: 1
+      - path: Armature/Chest 1/Right Shoulder/Top Arm/Bottom Arm/Bottom Arm_end
+        weight: 1
+      - path: Armature/Chest 1/Root
+        weight: 1
+      - path: Armature/Chest 1/Root/Root_end
+        weight: 1
+      - path: Armature/Left Hip
+        weight: 1
+      - path: Armature/Left Hip/Top Leg
+        weight: 1
+      - path: Armature/Left Hip/Top Leg/Bottom Leg
+        weight: 1
+      - path: Armature/Left Hip/Top Leg/Bottom Leg/Bottom Leg_end
+        weight: 1
+      - path: Armature/Right Hip
+        weight: 1
+      - path: Armature/Right Hip/Top Leg.001
+        weight: 1
+      - path: Armature/Right Hip/Top Leg.001/Bottom Leg.001
+        weight: 1
+      - path: Armature/Right Hip/Top Leg.001/Bottom Leg.001/Bottom Leg.001_end
+        weight: 1
+      - path: Chest
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Left Arm
+        weight: 1
+      - path: Left Arm/Left Arm lower
+        weight: 1
+      - path: Left Arm/Left Arm lower/Gun
+        weight: 1
+      - path: Left Leg
+        weight: 1
+      - path: Left Leg/Left Leg Lower
+        weight: 1
+      - path: Right Arm
+        weight: 1
+      - path: Right Arm/Right Arm.001
+        weight: 1
+      - path: Right Leg
+        weight: 1
+      - path: Right Leg/Right Leg Lower
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Idle
+      takeName: Armature|ArmatureAction
+      firstFrame: 26
+      lastFrame: 33
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Chest 1
+        weight: 1
+      - path: Armature/Chest 1/Head 1
+        weight: 1
+      - path: Armature/Chest 1/Head 1/Head_end
+        weight: 1
+      - path: Armature/Chest 1/Left Shoulder
+        weight: 1
+      - path: Armature/Chest 1/Left Shoulder/Top Arm.001
+        weight: 1
+      - path: Armature/Chest 1/Left Shoulder/Top Arm.001/Bottom Arm.001
+        weight: 1
+      - path: Armature/Chest 1/Left Shoulder/Top Arm.001/Bottom Arm.001/Gun 1
+        weight: 1
+      - path: Armature/Chest 1/Left Shoulder/Top Arm.001/Bottom Arm.001/Gun 1/Gun_end
+        weight: 1
+      - path: Armature/Chest 1/Right Shoulder
+        weight: 1
+      - path: Armature/Chest 1/Right Shoulder/Top Arm
+        weight: 1
+      - path: Armature/Chest 1/Right Shoulder/Top Arm/Bottom Arm
+        weight: 1
+      - path: Armature/Chest 1/Right Shoulder/Top Arm/Bottom Arm/Bottom Arm_end
+        weight: 1
+      - path: Armature/Chest 1/Root
+        weight: 1
+      - path: Armature/Chest 1/Root/Root_end
+        weight: 1
+      - path: Armature/Left Hip
+        weight: 1
+      - path: Armature/Left Hip/Top Leg
+        weight: 1
+      - path: Armature/Left Hip/Top Leg/Bottom Leg
+        weight: 1
+      - path: Armature/Left Hip/Top Leg/Bottom Leg/Bottom Leg_end
+        weight: 1
+      - path: Armature/Right Hip
+        weight: 1
+      - path: Armature/Right Hip/Top Leg.001
+        weight: 1
+      - path: Armature/Right Hip/Top Leg.001/Bottom Leg.001
+        weight: 1
+      - path: Armature/Right Hip/Top Leg.001/Bottom Leg.001/Bottom Leg.001_end
+        weight: 1
+      - path: Chest
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Left Arm
+        weight: 1
+      - path: Left Arm/Left Arm lower
+        weight: 1
+      - path: Left Arm/Left Arm lower/Gun
+        weight: 1
+      - path: Left Leg
+        weight: 1
+      - path: Left Leg/Left Leg Lower
+        weight: 1
+      - path: Right Arm
+        weight: 1
+      - path: Right Arm/Right Arm.001
+        weight: 1
+      - path: Right Leg
+        weight: 1
+      - path: Right Leg/Right Leg Lower
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

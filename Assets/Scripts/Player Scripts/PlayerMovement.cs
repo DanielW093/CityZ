@@ -24,6 +24,8 @@ public class PlayerMovement : NetworkBehaviour {
 	//private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
 	//private AudioClip m_LandSound;    
 
+	private bool isMoving = false;
+	
 	private Camera PlayerCamera;
 	private bool JumpPress;
 	private Vector2 PlayerInput;
@@ -32,7 +34,8 @@ public class PlayerMovement : NetworkBehaviour {
 	private bool PreviouslyGrounded;
 	private bool IsJumping;
 	//private AudioSource m_AudioSource;
-
+	private Animator anim;
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -40,7 +43,8 @@ public class PlayerMovement : NetworkBehaviour {
 		
 		PlayerController = GetComponent<CharacterController>(); //Get player controller
 		PlayerCamera = GetComponentInChildren<Camera>();
-
+		anim = GetComponentInChildren<Animator>();
+		
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 		
@@ -106,6 +110,7 @@ public class PlayerMovement : NetworkBehaviour {
 
 			GetInput (out speed);
 			
+			anim.SetBool("moving",false);
 			Vector3 desiredMove = transform.forward*PlayerInput.y + transform.right * PlayerInput.x;
 			
 			MoveDir.x = desiredMove.x*speed;
@@ -142,9 +147,18 @@ public class PlayerMovement : NetworkBehaviour {
 			IsWalking  = false;
 		
 		if(IsWalking)
+		{
 			speed = WalkSpeed;
+			}
 		else
+		{
 			speed = RunSpeed;
+		}
+		
+		if(speed > 0)
+			isMoving = true;
+		else
+			isMoving = false;
 
 		//Limit speed
 		PlayerInput = new Vector2(horizontal, vertical);
