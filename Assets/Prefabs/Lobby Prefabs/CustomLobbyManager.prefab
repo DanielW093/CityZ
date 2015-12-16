@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 441650}
   - 114: {fileID: 11418366}
   - 114: {fileID: 11475096}
-  - 114: {fileID: 11482238}
   m_Layer: 0
   m_Name: CustomLobbyManager
   m_TagString: NetworkManager
@@ -42,7 +41,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
-  showGUI: 1
+  showGUI: 0
   offsetX: 0
   offsetY: 0
 --- !u!114 &11475096
@@ -65,17 +64,19 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 0}
+  m_PlayerPrefab: {fileID: 164730, guid: 5bd31f07d7f4f7344b7a4bc06a08cd7b, type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
-  m_OfflineScene: 
+  m_OfflineScene: MainMenu
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 123068, guid: 70368d909f53fb449a58c78f55f762c4, type: 2}
   - {fileID: 190146, guid: 47a8b408a1a32754a850ff020089de07, type: 2}
-  - {fileID: 190484, guid: 4f4819c008d5b8c48a2c14242742bc60, type: 2}
-  m_CustomConfig: 0
-  m_MaxConnections: 4
+  - {fileID: 145526, guid: 4f4819c008d5b8c48a2c14242742bc60, type: 2}
+  - {fileID: 149616, guid: 1c42e0a7e57c06943a44d6a0efc0e962, type: 2}
+  - {fileID: 169416, guid: db41c5684c6ffb6408f9f9def216fb35, type: 2}
+  m_CustomConfig: 1
+  m_MaxConnections: 17
   m_ConnectionConfig:
     m_PacketSize: 1500
     m_FragmentSize: 500
@@ -102,7 +103,7 @@ MonoBehaviour:
     m_ReactorMaximumReceivedMessages: 1024
     m_ReactorMaximumSentMessages: 1024
     m_MaxPacketSize: 2000
-  m_Channels: 
+  m_Channels: 0500000000000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
@@ -113,49 +114,18 @@ MonoBehaviour:
   matchMaker: {fileID: 0}
   matchName: default
   matchSize: 4
-  m_ShowLobbyGUI: 1
+  m_ShowLobbyGUI: 0
   m_MaxPlayers: 4
   m_MaxPlayersPerConnection: 1
   m_MinPlayers: 1
-  m_LobbyPlayerPrefab: {fileID: 11466162, guid: fcce1a92c76b4d3458a0d708ae09d2ee,
+  m_LobbyPlayerPrefab: {fileID: 11401674, guid: fcce1a92c76b4d3458a0d708ae09d2ee,
     type: 2}
   m_GamePlayerPrefab: {fileID: 164730, guid: 5bd31f07d7f4f7344b7a4bc06a08cd7b, type: 2}
   m_LobbyScene: MainMenu
   m_PlayScene: World
   lobbySlots: []
-  PlayerBanner: {fileID: 190484, guid: 4f4819c008d5b8c48a2c14242742bc60, type: 2}
---- !u!114 &11482238
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 187546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 11
-    i1: 235
-    i2: 224
-    i3: 130
-    i4: 154
-    i5: 151
-    i6: 133
-    i7: 4
-    i8: 89
-    i9: 70
-    i10: 227
-    i11: 3
-    i12: 95
-    i13: 109
-    i14: 135
-    i15: 67
-  m_ServerOnly: 1
-  m_LocalPlayerAuthority: 0
+  PlayerBanners: []
+  PlayerBanner: {fileID: 145526, guid: 4f4819c008d5b8c48a2c14242742bc60, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -169,12 +139,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: PlayerBanner
       value: 
-      objectReference: {fileID: 190484, guid: 4f4819c008d5b8c48a2c14242742bc60, type: 2}
+      objectReference: {fileID: 145526, guid: 4f4819c008d5b8c48a2c14242742bc60, type: 2}
     - target: {fileID: 0}
       propertyPath: m_AssetId.i0
       value: 11
@@ -242,6 +212,43 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_ServerOnly
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_MaxConnections
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_MinPlayers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_PlayerPrefab
+      value: 
+      objectReference: {fileID: 164730, guid: 5bd31f07d7f4f7344b7a4bc06a08cd7b, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_AutoCreatePlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ShowLobbyGUI
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SpawnPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LobbyPlayerPrefab
+      value: 
+      objectReference: {fileID: 11401674, guid: fcce1a92c76b4d3458a0d708ae09d2ee,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_GamePlayerPrefab
+      value: 
+      objectReference: {fileID: 164730, guid: 5bd31f07d7f4f7344b7a4bc06a08cd7b, type: 2}
+    - target: {fileID: 0}
+      propertyPath: showGUI
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -134,7 +134,8 @@ public class ApplicationSetup : MonoBehaviour {
 			bool lan = GameObject.Find("LanToggle").GetComponent<Toggle>().isOn;
 
 			string matchName = "Default";
-			uint maxplayers = 4;
+			int minplayers = 2;
+			int maxplayers = 4;
 			int port = 7777;
 
 			if(GameObject.Find("MatchNameInput").transform.Find("Text").GetComponent<Text>().text.Length != 0)
@@ -146,9 +147,33 @@ public class ApplicationSetup : MonoBehaviour {
 				int.TryParse(GameObject.Find("MaxPlayersInput").transform.Find("Text").GetComponent<Text>().text, out input); //Parse contents into integer
 
 				if(input >= 2 && input <= 16) //If entered amount of players is within acceptable ranges
-					maxplayers = (uint)input; //Set max players
+					maxplayers = input; //Set max players
 				else{
 					Debug.Log("INVALID PlAYER AMOUNT ENTERED");
+					return;
+				}
+			}
+
+			if(GameObject.Find("MinPlayersInput").transform.Find("Text").GetComponent<Text>().text.Length != 0)
+			{
+				int input; //Min players variable;
+				int.TryParse(GameObject.Find("MinPlayersInput").transform.Find("Text").GetComponent<Text>().text, out input); //Parse contents into integer
+
+				if(input > 0 && input <= 16)
+				{
+					if(input <= maxplayers)
+					{
+						minplayers = input;
+					}
+					else
+					{
+						Debug.Log("Minimum players cannot be higher than maximum players!");
+						return;
+					}
+				}
+				else
+				{
+					Debug.Log("INVALID PLAYER AMOUNT ENTERED");
 					return;
 				}
 			}
@@ -167,6 +192,10 @@ public class ApplicationSetup : MonoBehaviour {
 			}
 			LobbyNet.networkPort = port;
 
+			LobbyNet.maxPlayers = maxplayers+1;
+
+			LobbyNet.minPlayers = minplayers;
+
 			if(!lan)
 			{
 				if(LobbyNet.matchMaker == null)
@@ -175,7 +204,7 @@ public class ApplicationSetup : MonoBehaviour {
 				NetworkMatch match = LobbyNet.matchMaker;
 				CreateMatchRequest req = new CreateMatchRequest();
 				req.name = matchName;
-				req.size = maxplayers;
+				req.size = (uint)maxplayers+1;
 				req.advertise = true;
 
 				if(GameObject.Find("PasswordInput").transform.Find("Text").GetComponent<Text>().text.Length != 0)
@@ -188,8 +217,6 @@ public class ApplicationSetup : MonoBehaviour {
 			else
 			{
 				LobbyNet.name = matchName;
-				LobbyNet.matchSize = maxplayers;
-
 				LobbyNet.StartHost();
 			}
 		}
@@ -255,6 +282,12 @@ public class ApplicationSetup : MonoBehaviour {
 
 		GameObject.Find("CancelLanButton").GetComponent<Button>().interactable = false;
 		GameObject.Find("ConnectingText").GetComponent<Text>().enabled = false;
+	}
+
+	public void QuitLobby()
+	{
+		LobbyNet.StopClient();
+		LobbyNet.StopServer();
 	}
 
 	public void QuitGame()

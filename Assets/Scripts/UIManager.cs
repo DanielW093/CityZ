@@ -39,12 +39,15 @@ public class UIManager : MonoBehaviour {
 		{
 			GameObject[] players = GameObject.FindGameObjectsWithTag("Player"); //Get array of players
 		
-			for(int i = 0; i < players.GetLength (0); i++) //Cycle through players
+			if(players.Length > 0)
 			{
-				PlayerMovement pm = players[i].GetComponent<PlayerMovement>();
-				if(pm.isLocalPlayer) //Is current player local player?
+				for(int i = 0; i < players.GetLength (0); i++) //Cycle through players
 				{
-					player = players[i]; //Set player
+					PlayerMovement pm = players[i].GetComponent<PlayerMovement>();
+					if(pm.isLocalPlayer) //Is current player local player?
+					{
+						player = players[i]; //Set player
+					}
 				}
 			}
 		}

@@ -445,14 +445,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 164730}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da022616d69e2c04ca36035b27cdde94, type: 3}
+  m_Script: {fileID: 11500000, guid: 9423b3e9b5b897645a71c22fd0657641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunShot: {fileID: 122624, guid: 031630203fb1204419c135d713b31e17, type: 2}
   isAutomatic: 1
-  fireDelay: 0.2
+  fireDelay: 0.5
   shotDamage: 2
-  shotVariation: 0
-  tracer: {fileID: 190146, guid: 47a8b408a1a32754a850ff020089de07, type: 2}
+  shotVariation: 0.01
+  tracer: {fileID: 0}
 --- !u!114 &11497930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -573,7 +574,7 @@ Prefab:
       objectReference: {fileID: 156468, guid: 2c66e5ff46910a8408c0a7778f09df06, type: 2}
     - target: {fileID: 0}
       propertyPath: fireDelay
-      value: .200000003
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: isAutomatic
@@ -587,6 +588,10 @@ Prefab:
       propertyPath: shotVariation
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: gunShot
+      value: 
+      objectReference: {fileID: 122624, guid: 031630203fb1204419c135d713b31e17, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 164730}

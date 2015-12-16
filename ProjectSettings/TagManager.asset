@@ -11,6 +11,8 @@ TagManager:
   - ClientUI
   - DecalManager
   - LobbyBanner
+  - Zombie
+  - LobbyPlayer
   layers:
   - Default
   - TransparentFX

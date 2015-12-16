@@ -35,7 +35,7 @@ public class ServerBrowser : MonoBehaviour {
 				string name = matchList[i].name;
 				bool hasPassword = matchList[i].isPrivate;
 				int currentPlayers = matchList[i].currentSize;
-				int maxPlayers = matchList[i].maxSize;
+				int maxPlayers = matchList[i].maxSize-1;
 				matchDisplays[i].GetComponent<ServerInfo>().UpdateInfo(name, hasPassword, currentPlayers, maxPlayers);
 			}
 		}
@@ -132,6 +132,12 @@ public class ServerBrowser : MonoBehaviour {
 			string pass = "";
 			Connect(pass);
 		}
+	}
+
+	public void CancelPassword()
+	{
+		GameObject.FindGameObjectWithTag("GameController").GetComponent<ApplicationSetup>().DisableAllMenus();
+		GameObject.FindGameObjectWithTag("GameController").GetComponent<ApplicationSetup>().DisplayServerList();
 	}
 
 	public void PasswordConnect()

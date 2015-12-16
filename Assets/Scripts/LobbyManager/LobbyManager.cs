@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,21 +7,9 @@ using System.Collections.Generic;
 public class LobbyManager : NetworkLobbyManager {
 
 	List<NetworkConnection> ActiveConnections = new List<NetworkConnection>();
+	public List<GameObject> PlayerBanners = new List<GameObject>();
 
 	[SerializeField] private GameObject PlayerBanner;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if(ActiveConnections.Count > 0)
-		{
-			//Debug.Log(ActiveConnections);
-		}
-	}
 		
 	public override void OnLobbyStartServer ()
 	{
@@ -34,17 +21,22 @@ public class LobbyManager : NetworkLobbyManager {
 	public override void OnStopServer ()
 	{
 		//THIS IS CALLED WHEN A SERVER IS STOPPED
-		GameObject.FindGameObjectWithTag("GameController").GetComponent<ApplicationSetup>().EnableMainMenu();
-		GameObject.Find("LobbyMenu").GetComponent<Canvas>().enabled = false;
+		if(GameObject.FindGameObjectWithTag("GameController") != null)
+			GameObject.FindGameObjectWithTag("GameController").GetComponent<ApplicationSetup>().EnableMainMenu();
+		if(GameObject.Find("LobbyMenu") != null)	
+			GameObject.Find("LobbyMenu").GetComponent<Canvas>().enabled = false;
+		
 		ActiveConnections.Clear();
+		PlayerBanners.Clear();
 		base.OnStopServer ();
 	}
 
 	public override void OnLobbyServerConnect (NetworkConnection conn)
 	{
-		//THIS IS CALLED SERVERSIDE WHEN A CLIENT CONNECTS. INCLUDES THE SERVER HOST JOINING THEIR OWN GAME.
 		ActiveConnections.Add(conn);
+		//THIS IS CALLED SERVERSIDE WHEN A CLIENT CONNECTS. INCLUDES THE SERVER HOST JOINING THEIR OWN GAME.
 		Debug.Log("CLIENT CONNECTED");
+
 		base.OnLobbyServerConnect (conn);
 	}
 
@@ -52,35 +44,67 @@ public class LobbyManager : NetworkLobbyManager {
 	{
 		//THIS IS CALLED SERVERSIDE WHEN THE LOBBY PLAYER OBJECT IS CREATED
 		//TODO: USE TO CREATE ITEMS TO REPRESENT PLAYER IN LOBBY
-		GameObject NewBanner = Instantiate(PlayerBanner) as GameObject;
 
-		NewBanner.transform.SetParent(GameObject.Find("LeftPanel").transform, false);
-		Vector3 pos = NewBanner.transform.localPosition;
-		pos.y -= 25f*conn.connectionId;
-		NewBanner.transform.localPosition = pos;
+		GameObject NewBanner = Instantiate(PlayerBanner) as GameObject;
+		NewBanner.GetComponent<PlayerBannerScript>().UpdatePosition(PlayerBanners.Count);
+		PlayerBanners.Add(NewBanner);
 
 		string playername = "Player " + conn.connectionId;
-		NewBanner.GetComponent<PlayerBannerScript>().SetConnectionInfo(playername, conn);
+		NewBanner.GetComponent<PlayerBannerScript>().SetConnectionInfo(playername, conn, playerControllerId);
 		NetworkServer.Spawn(NewBanner);
 		NewBanner.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
-		NewBanner.GetComponent<PlayerBannerScript>().SetElements();
 
 		Debug.Log(conn.connectionId);
 
 		return base.OnLobbyServerCreateLobbyPlayer (conn, playerControllerId);
 	}
 
+	public override void OnLobbyServerPlayerRemoved (NetworkConnection conn, short playerControllerId)
+	{
+
+		base.OnLobbyServerPlayerRemoved (conn, playerControllerId);
+	}
+
 	public override void OnLobbyServerDisconnect (NetworkConnection conn)
 	{
 		//THIS IS CALLED SERVERSIDE WHEN A CLIENT DISCONNECTS
+		Debug.Log("STEP ONE");
+		for(int i = 0; i < ActiveConnections.Count; i++)
+		{
+			if (ActiveConnections[i] == conn)
+			{
+				ActiveConnections.RemoveAt(i);
+				Debug.Log("ACTIVE CONNECTION TERMINATED");
+				break;
+			}
+		}
 
-//		for(int i = 0; i < ActiveConnections.Count; i++)
-//		{
-//			if (ActiveConnections[i] == conn)
-//				ActiveConnections.RemoveAt(i);
-//		}
+		for (int i = 0; i < PlayerBanners.Count; i++)
+		{
+			if(PlayerBanners[i].GetComponent<PlayerBannerScript>().GetConnectionID() == conn.connectionId)
+			{
+				PlayerBanners.RemoveAt(i);
+				Debug.Log("PLAYER BANNER REMOVED");
+				break;
+			}
+		}
+
+		foreach (GameObject g in PlayerBanners)
+		{
+			if(g.GetComponent<PlayerBannerScript>().GetConnectionID() == conn.connectionId)
+			{
+				PlayerBanners.Remove(g);
+			}
+		}
+
+		for (int i = 0; i < PlayerBanners.Count; i++)
+		{
+			PlayerBanners[i].GetComponent<PlayerBannerScript>().UpdatePosition(i);
+		}
+
 
 		Debug.Log("CLIENT DISCONNECTED");
+
 		base.OnLobbyServerDisconnect (conn);
 	}
 
@@ -98,9 +122,20 @@ public class LobbyManager : NetworkLobbyManager {
 		base.OnServerError (conn, errorCode);
 	}
 
+	public override void OnLobbyServerSceneChanged (string sceneName)
+	{
+		foreach (GameObject g in PlayerBanners)
+		{
+			Destroy(g);
+		}
+
+		PlayerBanners.Clear();
+
+		base.OnLobbyServerSceneChanged (sceneName);
+	}
+
 	public override void OnLobbyClientConnect (NetworkConnection conn)
 	{
-
 
 		//THIS IS CALLED CLIENTSIDE WHEN SUCCESSFULLY CONNECTING TO A LOBBY
 		base.OnLobbyClientConnect (conn);
@@ -128,8 +163,10 @@ public class LobbyManager : NetworkLobbyManager {
 	{
 		//THIS IS CALLED CLIENTSIDE WHEN EXITING A LOBBY
 		//TODO: CUSTOM BEHAVIOUR CAN GO HERE
-		GameObject.FindGameObjectWithTag("GameController").GetComponent<ApplicationSetup>().EnableMainMenu();
-		GameObject.Find("LobbyMenu").GetComponent<Canvas>().enabled = false;
+		if(GameObject.FindGameObjectWithTag("GameController") != null)
+			GameObject.FindGameObjectWithTag("GameController").GetComponent<ApplicationSetup>().EnableMainMenu();
+		if(GameObject.Find("LobbyMenu") != null)
+			GameObject.Find("LobbyMenu").GetComponent<Canvas>().enabled = false;
 		base.OnLobbyClientExit ();
 	}
 
@@ -137,4 +174,6 @@ public class LobbyManager : NetworkLobbyManager {
 	{
 		base.OnClientError (conn, errorCode);
 	}
+
+
 }
